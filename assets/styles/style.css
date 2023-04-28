@@ -57,6 +57,24 @@
   border-radius: 50px;
 }
 
+.button.remove {
+  animation: buttons 0.5s forwards;
+}
+
+@keyframes buttons {
+  0% {
+    background-color: #cfffcb;
+    color: #303030;
+    border-radius: 50px;
+  }
+
+  100% {
+    background-color: #656565;
+    border-radius: 3px;
+    color: #ffffff;
+  }
+}
+
 .backspace,
 .capslock,
 .enter,
