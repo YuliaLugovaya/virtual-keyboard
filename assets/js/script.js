@@ -137,11 +137,15 @@ function initRowThird() {
     }
     window.addEventListener('keydown', (e) => {
       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
-        button.classList.add('active');
+        if (e.key === 'CapsLock') {
+          button.classList.toggle('active');
+        } else {
+          button.classList.add('active');
+        }
       }
     });
     window.addEventListener('keyup', (e) => {
-      if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
+      if ((e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) && e.key !== 'CapsLock') {
         button.classList.remove('active');
         button.classList.add('remove');
       }

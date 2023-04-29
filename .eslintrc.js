@@ -11,7 +11,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 12,
   },
-  // rules: {
-  //   "allowForLoopAfterthoughts": true,
-  // },
+  rules: {
+    // "allowForLoopAfterthoughts": true,
+  },
 };
