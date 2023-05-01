@@ -28,6 +28,10 @@
   background-color: #e6e6e6;
 }
 
+.container.uppercase {
+  text-transform: capitalize;
+}
+
 .row {
   display: flex;
 }
