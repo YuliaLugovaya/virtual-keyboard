@@ -500,7 +500,7 @@ function initRowFourthRus() {
   for (let i = 0; i < rowFourthRus.length; i++) {
     const button = document.createElement('div');
     button.className = 'button';
-    button.innerText = rowFourth[i];
+    button.innerText = rowFourthRus[i];
     button.setAttribute('lowerCase', button.innerText);
     button.setAttribute('upperCase', button.innerText.toUpperCase());
     if (rowFourthRus[i] === 'Shift' && i === 0) {
@@ -669,6 +669,8 @@ initRowFifth();
 let flag = false;
 
 window.addEventListener('keydown', (e) => {
+  const str = textarea.innerHTML;
+  textarea.innerHTML = str;
   if (e.code === 'ShiftLeft') {
     flag = true;
   }
@@ -676,28 +678,29 @@ window.addEventListener('keydown', (e) => {
     flag = false;
     container.classList.toggle('rus');
     container.classList.remove('en');
-    rowFirstContainer.innerHTML = '';
-    rowSecondContainer.innerHTML = '';
-    rowThirdContainer.innerHTML = '';
-    rowFourthContainer.innerHTML = '';
-    rowFifthContainer.innerHTML = '';
-    initRowFirstRus();
-    initRowSecondRus();
-    initRowThirdRus();
-    initRowFourthRus();
-    initRowFifth();
-  }
-  if (!container.classList.contains('rus')) {
-    container.classList.toggle('en');
-    rowFirstContainer.innerHTML = '';
-    rowSecondContainer.innerHTML = '';
-    rowThirdContainer.innerHTML = '';
-    rowFourthContainer.innerHTML = '';
-    rowFifthContainer.innerHTML = '';
-    initRowFirst();
-    initRowSecond();
-    initRowThird();
-    initRowFourth();
-    initRowFifth();
+    if (container.classList.contains('rus')) {
+      rowFirstContainer.innerHTML = '';
+      rowSecondContainer.innerHTML = '';
+      rowThirdContainer.innerHTML = '';
+      rowFourthContainer.innerHTML = '';
+      rowFifthContainer.innerHTML = '';
+      initRowFirstRus();
+      initRowSecondRus();
+      initRowThirdRus();
+      initRowFourthRus();
+      initRowFifth();
+    } else {
+      container.classList.toggle('en');
+      rowFirstContainer.innerHTML = '';
+      rowSecondContainer.innerHTML = '';
+      rowThirdContainer.innerHTML = '';
+      rowFourthContainer.innerHTML = '';
+      rowFifthContainer.innerHTML = '';
+      initRowFirst();
+      initRowSecond();
+      initRowThird();
+      initRowFourth();
+      initRowFifth();
+    }
   }
 });
