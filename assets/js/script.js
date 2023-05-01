@@ -58,17 +58,7 @@ container.appendChild(rowFifthContainer);
 // заголовок и текст
 title.innerText = 'Virtual Keyboard';
 textFirst.innerText = 'Клавиатура создана в операционной системе Windows';
-textSecond.innerText = 'Комбинация для переключения языка: левые alt + shift';
-
-// // фокус в текстовом поле при нажатии на любую клавишу
-// window.addEventListener('keydown', () => {
-//   textarea.focus();
-// });
-
-// function SelectText () {
-//   textarea.focus();
-//   textarea.setSelectionRange(2,5);
-// }
+textSecond.innerText = 'Комбинация для переключения языка: левые shift + alt';
 
 // отрисовка кнопок в клавиатуру
 // первый ряд
@@ -107,8 +97,6 @@ function initRowFirst() {
     button.addEventListener('click', () => {
       if (button.classList.contains('shift-left')) {
         button.classList.toggle('active');
-        // container.classList.toggle('uppercase');
-        // container.classList.toggle('shift');
       } else {
         button.classList.toggle('active');
         setTimeout(() => {
@@ -143,6 +131,14 @@ function initRowFirstRus() {
     window.addEventListener('keydown', (e) => {
       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
         button.classList.add('active');
+        if (button.classList.contains('backspace')) {
+          const str = textarea.innerHTML;
+          textarea.innerHTML = str.slice(0, -1);
+        } else if (container.classList.contains('uppercase')) {
+          textarea.innerHTML += button.innerText.toUpperCase();
+        } else {
+          textarea.innerHTML += button.innerText.toLowerCase();
+        }
       }
     });
     window.addEventListener('keyup', (e) => {
@@ -153,6 +149,24 @@ function initRowFirstRus() {
       setTimeout(() => {
         button.classList.remove('remove');
       });
+    });
+    button.addEventListener('click', () => {
+      if (button.classList.contains('shift-left')) {
+        button.classList.toggle('active');
+      } else {
+        button.classList.toggle('active');
+        setTimeout(() => {
+          button.classList.remove('active');
+        }, 150);
+        if (button.classList.contains('backspace')) {
+          const str = textarea.innerHTML;
+          textarea.innerHTML = str.slice(0, -1);
+        } else if (container.classList.contains('uppercase')) {
+          textarea.innerHTML += button.innerText.toUpperCase();
+        } else {
+          textarea.innerHTML += button.innerText.toLowerCase();
+        }
+      }
     });
     rowFirstContainer.appendChild(button);
   }
@@ -237,6 +251,17 @@ function initRowSecondRus() {
     window.addEventListener('keydown', (e) => {
       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
         button.classList.add('active');
+        if (button.classList.contains('delete')) {
+          const str = textarea.innerHTML;
+          textarea.innerHTML = str.slice(0, -1);
+        } if (button.classList.contains('tab')) {
+          const str = textarea.innerHTML;
+          textarea.innerHTML = `${str}    `;
+        } else if (container.classList.contains('uppercase')) {
+          textarea.innerHTML += button.innerText.toUpperCase();
+        } else {
+          textarea.innerHTML += button.innerText.toLowerCase();
+        }
       }
     });
     window.addEventListener('keyup', (e) => {
@@ -247,6 +272,23 @@ function initRowSecondRus() {
       setTimeout(() => {
         button.classList.remove('remove');
       });
+    });
+    button.addEventListener('click', () => {
+      button.classList.toggle('active');
+      setTimeout(() => {
+        button.classList.remove('active');
+      }, 150);
+      if (button.classList.contains('delete')) {
+        const str = textarea.innerHTML;
+        textarea.innerHTML = str.slice(0, -2) + str.slice(-1);
+      } else if (button.classList.contains('tab')) {
+        const str = textarea.innerHTML;
+        textarea.innerHTML = `${str}    `;
+      } else if (container.classList.contains('uppercase')) {
+        textarea.innerHTML += button.innerText.toUpperCase();
+      } else {
+        textarea.innerHTML += button.innerText.toLowerCase();
+      }
     });
     rowSecondContainer.appendChild(button);
   }
@@ -323,7 +365,7 @@ function initRowThird() {
 initRowThird();
 
 function initRowThirdRus() {
-  for (let i = 0; i < rowThird.length; i++) {
+  for (let i = 0; i < rowThirdRus.length; i++) {
     const button = document.createElement('div');
     button.className = 'button';
     button.innerText = rowThirdRus[i];
@@ -339,8 +381,20 @@ function initRowThirdRus() {
       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
         if (e.key === 'CapsLock') {
           button.classList.toggle('active');
+          container.classList.toggle('uppercase');
         } else {
           button.classList.add('active');
+        }
+        if (button.classList.contains('enter')) {
+          const str = textarea.innerHTML;
+          textarea.innerHTML = `${str}\n`;
+        } else if (button.classList.contains('capslock')) {
+          const str = textarea.innerHTML;
+          textarea.innerHTML = `${str}`;
+        } else if (container.classList.contains('uppercase')) {
+          textarea.innerHTML += button.innerText.toUpperCase();
+        } else {
+          textarea.innerHTML += button.innerText.toLowerCase();
         }
       }
     });
@@ -352,6 +406,25 @@ function initRowThirdRus() {
       setTimeout(() => {
         button.classList.remove('remove');
       });
+    });
+    button.addEventListener('click', () => {
+      if (button.classList.contains('capslock')) {
+        button.classList.toggle('active');
+        container.classList.toggle('uppercase');
+      } else {
+        button.classList.toggle('active');
+        setTimeout(() => {
+          button.classList.remove('active');
+        }, 150);
+        if (button.classList.contains('enter')) {
+          const str = textarea.innerHTML;
+          textarea.innerHTML = `${str}\n`;
+        } else if (container.classList.contains('uppercase')) {
+          textarea.innerHTML += button.innerText.toUpperCase();
+        } else {
+          textarea.innerHTML += button.innerText.toLowerCase();
+        }
+      }
     });
     rowThirdContainer.appendChild(button);
   }
@@ -427,7 +500,7 @@ function initRowFourthRus() {
   for (let i = 0; i < rowFourthRus.length; i++) {
     const button = document.createElement('div');
     button.className = 'button';
-    button.innerText = rowFourthRus[i];
+    button.innerText = rowFourth[i];
     button.setAttribute('lowerCase', button.innerText);
     button.setAttribute('upperCase', button.innerText.toUpperCase());
     if (rowFourthRus[i] === 'Shift' && i === 0) {
@@ -442,16 +515,44 @@ function initRowFourthRus() {
     window.addEventListener('keydown', (e) => {
       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
         button.classList.add('active');
+        if (button.classList.contains('shift-left')) {
+          container.classList.toggle('uppercase');
+          const str = textarea.innerHTML;
+          textarea.innerHTML = `${str}`;
+        } else if (container.classList.contains('uppercase')) {
+          textarea.innerHTML += button.innerText.toUpperCase();
+        } else {
+          textarea.innerHTML += button.innerText.toLowerCase();
+        }
       }
     });
     window.addEventListener('keyup', (e) => {
       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
         button.classList.remove('active');
+        container.classList.remove('uppercase');
         button.classList.add('remove');
       }
       setTimeout(() => {
         button.classList.remove('remove');
       });
+    });
+    button.addEventListener('click', () => {
+      if (button.classList.contains('shift-left')) {
+        button.classList.toggle('active');
+        container.classList.toggle('uppercase');
+        container.classList.toggle('shift');
+      } else {
+        button.classList.toggle('active');
+        setTimeout(() => {
+          button.classList.remove('active');
+          container.classList.remove('uppercase');
+        }, 150);
+        if (container.classList.contains('uppercase')) {
+          textarea.innerHTML += button.innerText.toUpperCase();
+        } else {
+          textarea.innerHTML += button.innerText.toLowerCase();
+        }
+      }
     });
     rowFourthContainer.appendChild(button);
   }
