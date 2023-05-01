@@ -7,10 +7,10 @@ const rowThird = ['CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', 
 const rowFourth = ['Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '▲', 'Shift'];
 const rowFifth = ['Ctrl', 'Win', 'Alt', '', 'Alt', '◀', '▼', '▶', 'Ctrl'];
 
-const rowFirstRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'];
-const rowSecondRus = ['Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Del'];
-const rowThirdRus = ['CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter'];
-const rowFourthRus = ['Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '▲', 'Shift'];
+// const rowFirstRus = ['ё', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'];
+// const rowSecondRus = ['Tab', 'й', 'ц', 'у', 'к', 'е', 'н', 'г', 'ш', 'щ', 'з', 'х', 'ъ', '\\', 'Del'];
+// const rowThirdRus = ['CapsLock', 'ф', 'ы', 'в', 'а', 'п', 'р', 'о', 'л', 'д', 'ж', 'э', 'Enter'];
+// const rowFourthRus = ['Shift', 'я', 'ч', 'с', 'м', 'и', 'т', 'ь', 'б', 'ю', '.', '▲', 'Shift'];
 
 // ссылка на body
 const body = document.querySelector('body');
@@ -90,40 +90,55 @@ function initRowFirst() {
         button.classList.remove('remove');
       });
     });
+    button.addEventListener('click', () => {
+      // textarea.focus();
+      button.classList.toggle('active');
+      setTimeout(() => {
+        button.classList.remove('active');
+      }, 150);
+      if (button.classList.contains('backspace')) {
+        const str = textarea.innerHTML;
+        textarea.innerHTML = str.slice(0, -1);
+      } else if (container.classList.contains('uppercase')) {
+        textarea.innerHTML += button.innerText.toUpperCase();
+      } else {
+        textarea.innerHTML += button.innerText.toLowerCase();
+      }
+    });
     rowFirstContainer.appendChild(button);
   }
   return rowFirstContainer;
 }
 initRowFirst();
 
-function initRowFirstRus() {
-  for (let i = 0; i < rowFirstRus.length; i++) {
-    const button = document.createElement('div');
-    button.className = 'button';
-    button.innerText = rowFirstRus[i];
-    button.setAttribute('lowerCase', button.innerText);
-    button.setAttribute('upperCase', button.innerText.toUpperCase());
-    if (rowFirstRus[i] === 'Backspace') {
-      button.className = 'button backspace';
-    }
-    window.addEventListener('keydown', (e) => {
-      if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
-        button.classList.add('active');
-      }
-    });
-    window.addEventListener('keyup', (e) => {
-      if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
-        button.classList.remove('active');
-        button.classList.add('remove');
-      }
-      setTimeout(() => {
-        button.classList.remove('remove');
-      });
-    });
-    rowFirstContainer.appendChild(button);
-  }
-  return rowFirstContainer;
-}
+// function initRowFirstRus() {
+//   for (let i = 0; i < rowFirstRus.length; i++) {
+//     const button = document.createElement('div');
+//     button.className = 'button';
+//     button.innerText = rowFirstRus[i];
+//     button.setAttribute('lowerCase', button.innerText);
+//     button.setAttribute('upperCase', button.innerText.toUpperCase());
+//     if (rowFirstRus[i] === 'Backspace') {
+//       button.className = 'button backspace';
+//     }
+//     window.addEventListener('keydown', (e) => {
+//       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
+//         button.classList.add('active');
+//       }
+//     });
+//     window.addEventListener('keyup', (e) => {
+//       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
+//         button.classList.remove('active');
+//         button.classList.add('remove');
+//       }
+//       setTimeout(() => {
+//         button.classList.remove('remove');
+//       });
+//     });
+//     rowFirstContainer.appendChild(button);
+//   }
+//   return rowFirstContainer;
+// }
 
 // второй ряд
 function initRowSecond() {
@@ -153,8 +168,17 @@ function initRowSecond() {
         button.classList.remove('remove');
       });
     });
-    button.addEventListener('click', (e) => {
-      textarea.innerText = e.code;
+    button.addEventListener('click', () => {
+      // textarea.focus();
+      button.classList.toggle('active');
+      setTimeout(() => {
+        button.classList.remove('active');
+      }, 150);
+      if (container.classList.contains('uppercase')) {
+        textarea.innerHTML += button.innerText.toUpperCase();
+      } else {
+        textarea.innerHTML += button.innerText.toLowerCase();
+      }
     });
     rowSecondContainer.appendChild(button);
   }
@@ -162,37 +186,37 @@ function initRowSecond() {
 }
 initRowSecond();
 
-function initRowSecondRus() {
-  for (let i = 0; i < rowSecondRus.length; i++) {
-    const button = document.createElement('div');
-    button.className = 'button';
-    button.innerText = rowSecondRus[i];
-    button.setAttribute('lowerCase', button.innerText);
-    button.setAttribute('upperCase', button.innerText.toUpperCase());
-    if (rowSecondRus[i] === 'Tab') {
-      button.className = 'button tab';
-    }
-    if (rowSecondRus[i] === 'Del') {
-      button.className = 'button delete';
-    }
-    window.addEventListener('keydown', (e) => {
-      if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
-        button.classList.add('active');
-      }
-    });
-    window.addEventListener('keyup', (e) => {
-      if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
-        button.classList.remove('active');
-        button.classList.add('remove');
-      }
-      setTimeout(() => {
-        button.classList.remove('remove');
-      });
-    });
-    rowSecondContainer.appendChild(button);
-  }
-  return rowSecondContainer;
-}
+// function initRowSecondRus() {
+//   for (let i = 0; i < rowSecondRus.length; i++) {
+//     const button = document.createElement('div');
+//     button.className = 'button';
+//     button.innerText = rowSecondRus[i];
+//     button.setAttribute('lowerCase', button.innerText);
+//     button.setAttribute('upperCase', button.innerText.toUpperCase());
+//     if (rowSecondRus[i] === 'Tab') {
+//       button.className = 'button tab';
+//     }
+//     if (rowSecondRus[i] === 'Del') {
+//       button.className = 'button delete';
+//     }
+//     window.addEventListener('keydown', (e) => {
+//       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
+//         button.classList.add('active');
+//       }
+//     });
+//     window.addEventListener('keyup', (e) => {
+//       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
+//         button.classList.remove('active');
+//         button.classList.add('remove');
+//       }
+//       setTimeout(() => {
+//         button.classList.remove('remove');
+//       });
+//     });
+//     rowSecondContainer.appendChild(button);
+//   }
+//   return rowSecondContainer;
+// }
 
 // третий ряд
 function initRowThird() {
@@ -227,52 +251,64 @@ function initRowThird() {
         button.classList.remove('remove');
       });
     });
+    button.addEventListener('click', () => {
+      // textarea.focus();
+      if (button.classList.contains('capslock')) {
+        button.classList.toggle('active');
+        container.classList.toggle('uppercase');
+      } else {
+        button.classList.toggle('active');
+        setTimeout(() => {
+          button.classList.remove('active');
+        }, 150);
+        if (container.classList.contains('uppercase')) {
+          textarea.innerHTML += button.innerText.toUpperCase();
+        } else {
+          textarea.innerHTML += button.innerText.toLowerCase();
+        }
+      }
+    });
     rowThirdContainer.appendChild(button);
   }
   return rowThirdContainer;
 }
 initRowThird();
 
-function initRowThirdRus() {
-  for (let i = 0; i < rowThird.length; i++) {
-    const button = document.createElement('div');
-    button.className = 'button';
-    button.innerText = rowThirdRus[i];
-    button.setAttribute('lowerCase', button.innerText);
-    button.setAttribute('upperCase', button.innerText.toUpperCase());
-    if (rowThirdRus[i] === 'CapsLock') {
-      button.className = 'button capslock';
-    }
-    if (rowThirdRus[i] === 'Enter') {
-      button.className = 'button enter';
-    }
-    window.addEventListener('keydown', (e) => {
-      if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
-        if (e.key === 'CapsLock') {
-          button.classList.toggle('active');
-        } else {
-          button.classList.add('active');
-        }
-      }
-    });
-    window.addEventListener('keyup', (e) => {
-      if ((e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) && e.key !== 'CapsLock') {
-        button.classList.remove('active');
-        button.classList.add('remove');
-      }
-      setTimeout(() => {
-        button.classList.remove('remove');
-      });
-    });
-    // button.addEventListener('click', function() {
-    //   if(button.classList.contains('capslock')) {
-    //     button.classList.add('active');
-    //   }
-    // })
-    rowThirdContainer.appendChild(button);
-  }
-  return rowThirdContainer;
-}
+// function initRowThirdRus() {
+//   for (let i = 0; i < rowThird.length; i++) {
+//     const button = document.createElement('div');
+//     button.className = 'button';
+//     button.innerText = rowThirdRus[i];
+//     button.setAttribute('lowerCase', button.innerText);
+//     button.setAttribute('upperCase', button.innerText.toUpperCase());
+//     if (rowThirdRus[i] === 'CapsLock') {
+//       button.className = 'button capslock';
+//     }
+//     if (rowThirdRus[i] === 'Enter') {
+//       button.className = 'button enter';
+//     }
+//     window.addEventListener('keydown', (e) => {
+//       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
+//         if (e.key === 'CapsLock') {
+//           button.classList.toggle('active');
+//         } else {
+//           button.classList.add('active');
+//         }
+//       }
+//     });
+//     window.addEventListener('keyup', (e) => {
+//       if ((e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) && e.key !== 'CapsLock') {
+//         button.classList.remove('active');
+//         button.classList.add('remove');
+//       }
+//       setTimeout(() => {
+//         button.classList.remove('remove');
+//       });
+//     });
+//     rowThirdContainer.appendChild(button);
+//   }
+//   return rowThirdContainer;
+// }
 
 // четвертый ряд
 function initRowFourth() {
@@ -305,46 +341,57 @@ function initRowFourth() {
         button.classList.remove('remove');
       });
     });
+    button.addEventListener('click', () => {
+      button.classList.toggle('active');
+      setTimeout(() => {
+        button.classList.remove('active');
+      }, 150);
+      if (container.classList.contains('uppercase')) {
+        textarea.innerHTML += button.innerText.toUpperCase();
+      } else {
+        textarea.innerHTML += button.innerText.toLowerCase();
+      }
+    });
     rowFourthContainer.appendChild(button);
   }
   return rowFourthContainer;
 }
 initRowFourth();
 
-function initRowFourthRus() {
-  for (let i = 0; i < rowFourthRus.length; i++) {
-    const button = document.createElement('div');
-    button.className = 'button';
-    button.innerText = rowFourthRus[i];
-    button.setAttribute('lowerCase', button.innerText);
-    button.setAttribute('upperCase', button.innerText.toUpperCase());
-    if (rowFourthRus[i] === 'Shift' && i === 0) {
-      button.className = 'button shift-left';
-    }
-    if (rowFourthRus[i] === 'Shift' && i === rowFourthRus.length - 1) {
-      button.className = 'button shift-right';
-    }
-    if (rowFourthRus[i] === '▲') {
-      button.className = 'button top';
-    }
-    window.addEventListener('keydown', (e) => {
-      if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
-        button.classList.add('active');
-      }
-    });
-    window.addEventListener('keyup', (e) => {
-      if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
-        button.classList.remove('active');
-        button.classList.add('remove');
-      }
-      setTimeout(() => {
-        button.classList.remove('remove');
-      });
-    });
-    rowFourthContainer.appendChild(button);
-  }
-  return rowFourthContainer;
-}
+// function initRowFourthRus() {
+//   for (let i = 0; i < rowFourthRus.length; i++) {
+//     const button = document.createElement('div');
+//     button.className = 'button';
+//     button.innerText = rowFourthRus[i];
+//     button.setAttribute('lowerCase', button.innerText);
+//     button.setAttribute('upperCase', button.innerText.toUpperCase());
+//     if (rowFourthRus[i] === 'Shift' && i === 0) {
+//       button.className = 'button shift-left';
+//     }
+//     if (rowFourthRus[i] === 'Shift' && i === rowFourthRus.length - 1) {
+//       button.className = 'button shift-right';
+//     }
+//     if (rowFourthRus[i] === '▲') {
+//       button.className = 'button top';
+//     }
+//     window.addEventListener('keydown', (e) => {
+//       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
+//         button.classList.add('active');
+//       }
+//     });
+//     window.addEventListener('keyup', (e) => {
+//       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
+//         button.classList.remove('active');
+//         button.classList.add('remove');
+//       }
+//       setTimeout(() => {
+//         button.classList.remove('remove');
+//       });
+//     });
+//     rowFourthContainer.appendChild(button);
+//   }
+//   return rowFourthContainer;
+// }
 
 // пятый ряд
 function initRowFifth() {
@@ -394,6 +441,17 @@ function initRowFifth() {
       setTimeout(() => {
         button.classList.remove('remove');
       });
+    });
+    button.addEventListener('click', () => {
+      button.classList.toggle('active');
+      setTimeout(() => {
+        button.classList.remove('active');
+      }, 150);
+      if (container.classList.contains('uppercase')) {
+        textarea.innerHTML += button.innerText.toUpperCase();
+      } else {
+        textarea.innerHTML += button.innerText.toLowerCase();
+      }
     });
     rowFifthContainer.appendChild(button);
   }
