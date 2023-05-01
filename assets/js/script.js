@@ -2,7 +2,6 @@
 /* eslint-disable no-undef */
 // массивы символов
 const rowFirst = ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', 'Backspace'];
-const rowFirstShift = ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', 'Backspace'];
 const rowSecond = ['Tab', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\', 'Del'];
 const rowThird = ['CapsLock', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', 'Enter'];
 const rowFourth = ['Shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/', '▲', 'Shift'];
@@ -442,7 +441,7 @@ function initRowFourth() {
     if (rowFourth[i] === 'Shift' && i === 0) {
       button.className = 'button shift-left';
     }
-    if (rowFourth[i] === 'Shift' && i === rowFourth.length - 1) {
+    if (rowFourth[i] === 'Shift' && i !== 0) {
       button.className = 'button shift-right';
     }
     if (rowFourth[i] === '▲') {
@@ -451,14 +450,16 @@ function initRowFourth() {
     window.addEventListener('keydown', (e) => {
       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
         button.classList.add('active');
+        let str = textarea.innerHTML;
         if (button.classList.contains('shift-left')) {
           container.classList.toggle('uppercase');
-          const str = textarea.innerHTML;
-          textarea.innerHTML = `${str}`;
+          textarea.innerHTML = str.replace('SHIFT', '');
         } else if (container.classList.contains('uppercase')) {
-          textarea.innerHTML += button.innerText.toUpperCase();
+          str += button.innerText.toUpperCase();
+          str.replace('SHIFT', '');
         } else {
-          textarea.innerHTML += button.innerText.toLowerCase();
+          str += button.innerText.toLowerCase();
+          str.replace('SHIFT', '');
         }
       }
     });
@@ -506,7 +507,7 @@ function initRowFourthRus() {
     if (rowFourthRus[i] === 'Shift' && i === 0) {
       button.className = 'button shift-left';
     }
-    if (rowFourthRus[i] === 'Shift' && i === rowFourthRus.length - 1) {
+    if (rowFourthRus[i] === 'Shift' && i !== 0) {
       button.className = 'button shift-right';
     }
     if (rowFourthRus[i] === '▲') {
@@ -515,14 +516,16 @@ function initRowFourthRus() {
     window.addEventListener('keydown', (e) => {
       if (e.key === button.getAttribute('lowerCase') || e.key === button.getAttribute('upperCase')) {
         button.classList.add('active');
+        let str = textarea.innerHTML;
         if (button.classList.contains('shift-left')) {
           container.classList.toggle('uppercase');
-          const str = textarea.innerHTML;
-          textarea.innerHTML = `${str}`;
+          textarea.innerHTML = str.replace('shift', '');
         } else if (container.classList.contains('uppercase')) {
-          textarea.innerHTML += button.innerText.toUpperCase();
+          str += button.innerText.toUpperCase();
+          str.replace('shift', '');
         } else {
-          textarea.innerHTML += button.innerText.toLowerCase();
+          str += button.innerText.toLowerCase();
+          str.replace('shift', '');
         }
       }
     });
